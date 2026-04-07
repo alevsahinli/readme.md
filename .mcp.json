@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "apify": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote",
+        "https://mcp.apify.com/?tools=actors,docs,runs,get-dataset-schema,easyapi/capcut-video-downloader,clockworks/tiktok-scraper",
+        "--header",
+        "Authorization: Bearer <YOUR_API_TOKEN>"
+      ]
+    }
+  }
+}
