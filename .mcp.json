@@ -9,6 +9,13 @@
         "--header",
         "Authorization: Bearer <YOUR_API_TOKEN>"
       ]
+    },
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@executeautomation/playwright-mcp-server"
+      ]
     }
   }
 }
