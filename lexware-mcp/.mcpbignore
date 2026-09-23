@@ -1,0 +1,6 @@
+src/
+test/
+tsconfig.json
+*.mcpb
+README.md
+.gitignore

@@ -1,0 +1,46 @@
+{
+  "manifest_version": "0.3",
+  "name": "lexware-cango",
+  "display_name": "Lexware Cango",
+  "version": "1.0.0",
+  "description": "Privater Connector: lädt Quittungen aus Google Drive als Belege in Lexware Office hoch und sucht Belege. Kein Löschen, kein Ändern.",
+  "long_description": "Läuft nur lokal auf diesem Rechner (kein Netzwerk-Port, nicht aus dem Internet erreichbar). Liest ausschließlich Dateien aus dem Ordner \"01 Buchhaltung/Quittungen\", lädt sie über die offizielle Lexware-API hoch, verhindert doppelte Uploads und verschiebt sie danach nach \"01 Buchhaltung/<Jahr>/Belege\". Der API-Schlüssel wird im Schlüsselbund des Betriebssystems gespeichert.",
+  "author": { "name": "Alev Sahinli" },
+  "server": {
+    "type": "node",
+    "entry_point": "dist/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": ["${__dirname}/dist/index.js"],
+      "env": {
+        "LEXWARE_API_KEY": "${user_config.lexware_api_key}",
+        "BUCHHALTUNG_ORDNER": "${user_config.buchhaltung_ordner}"
+      }
+    }
+  },
+  "tools": [
+    { "name": "lexware_verbindung_testen", "description": "Prüft den API-Schlüssel und zeigt den Firmennamen." },
+    { "name": "lexware_quittungen_auflisten", "description": "Listet die Dateien im Ordner Quittungen (noch nicht in Lexware)." },
+    { "name": "lexware_beleg_hochladen", "description": "Lädt eine Quittung als Beleg hoch und verschiebt sie nach <Jahr>/Belege." },
+    { "name": "lexware_belege_suchen", "description": "Sucht Belege in Lexware (nur lesen)." },
+    { "name": "lexware_upload_protokoll", "description": "Zeigt, was bisher hochgeladen wurde." }
+  ],
+  "user_config": {
+    "lexware_api_key": {
+      "type": "string",
+      "title": "Lexware API-Schlüssel",
+      "description": "Aus app.lexware.de → Einstellungen → Public API. Wird verschlüsselt im Schlüsselbund gespeichert.",
+      "sensitive": true,
+      "required": true
+    },
+    "buchhaltung_ordner": {
+      "type": "directory",
+      "title": "Ordner \"01 Buchhaltung\"",
+      "description": "Der per Google Drive für Desktop synchronisierte Ordner Cango Transporte → 01 Buchhaltung (darin liegt \"Quittungen\").",
+      "required": true
+    }
+  },
+  "compatibility": { "platforms": ["darwin", "win32"], "runtimes": { "node": ">=18.0.0" } },
+  "keywords": ["lexware", "lexoffice", "buchhaltung", "belege"],
+  "license": "UNLICENSED"
+}
